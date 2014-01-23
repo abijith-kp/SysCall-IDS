@@ -1,26 +1,41 @@
 struct sysCPS* random;   
 
 void addNode(char *call1, char *call2, struct sysCPS **headref){ 
-        struct sysC *tmp = (struct sysC *)malloc(sizeof(struct sysC *));
-        memset(tmp, 0, sizeof(struct sysC));
+        struct sysCPS t, *tmp = (struct sysCPS *)malloc(sizeof(struct sysCPS));
+        memset(tmp, 0, sizeof(struct sysCPS));
 
-	tmp->call = strdup(call);
-	tmp->count = tag;
+	tmp->call1 = strdup(call1);
+	tmp->call2 = strdup(call2);
 	tmp->next = NULL;
 
-	if(!(*headRef)) {
+        t = (*headRef);
+	if(!t) {
 		*headRef = tmp;
-		*tailRef = tmp;
+		//*tailRef = tmp;
 		return;
 	}
 
-	(*tailRef)->next = tmp;
-	*tailRef = tmp;
+        while(t->next) {
+                t = t->next;
+        }
+        t->next = tmp;
 }
 
-void addNode()
-	
+void addNode(struct sysCPS **tmpRef, struct sysCPS **headRef) {
+        struct sysCPS *tmp = *headRef;
 
+        if(tmp) {
+                tmp = tmp->next;
+        }
+
+        while(tmp->next) {
+                tmp = tmp->next;
+        }
+
+        tmp->next = (*tmpRef);
+}
+	
+/*
 void makeSyscallList() {
 	char call[20];
 	FILE *file = fopen(sysFile, "r");
@@ -34,7 +49,7 @@ void makeSyscallList() {
 	
 	fclose(file);
 }
-
+*/
 
 void makePoset(char *fileName) {
 	int i=0;
@@ -45,21 +60,23 @@ void makePoset(char *fileName) {
 	int k=0;
 
 	head = NULL;
-        // tailI = NULL;
-	while(!feof(file)) {
+	
+        while(!feof(file)) {
 		fscanf(file, "%s\n", call);
 		k++; // = find_count(call);
 
                 if(k == 1) {
                         random = (struct sysCPS*)malloc(sizeof(struct sysCPS));
-                        strdup(random->call1, call);
+                        memset(random, 0, sizeof(struct sysCPS));
+                        random->call1 = strdup(call);
                         k++;
                 }
                 if(k == 2) {
-                ran
+                        random->call2 = strdup(call);
+                        random->next = NULL;
                         addNode(&random, &head); //, &tailI);
                         k = 0;
-                        countI++;
+                        // countI++;
                 }
 	}
 
