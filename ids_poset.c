@@ -10,17 +10,17 @@ int main(int argc, char **argv) {
         strcpy(appName, argv[1]);
 
         FILE *file = fopen(".ids/list", "r");
-        char fileN[200];
+        char fileN[5];
 	// makeSyscallList();
 
         while(!feof(file)) {
                 fscanf(file, "%s\n", fileN);
-                printf("\n %s \n", fileN);
-                makeList(fileN);
-                compareList();
+                // printf("\n %s \n", fileN);
+                makePoset(fileN);
+                // compareList();
         }
       
-        writeSIG();
+        // writeSIG();
 	
         return 0;
 }
