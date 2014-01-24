@@ -14,6 +14,8 @@ struct sysCPS {
 struct sysCPS *head = NULL, *tail = NULL;
 // for the current status of signature which will be written to a file later on
 struct sysCPS *headSIG = NULL, *tailSIG = NULL;
+// a random variable as a helper for making posets
+struct sysCPS* random_var;   
 
 /*
 struct sysC *headI = NULL, *tailI = NULL; // Initial list of log
