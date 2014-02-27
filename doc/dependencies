@@ -1,0 +1,17 @@
+ids_poset.c 	 ==> data_structure.h
+		     poset_manage.h
+		     nodes_manage.h
+
+data_structure.h ==> struct sysCPS - Represents a node of poset
+				     Members: 2 system calls and a next pointer
+
+poset_manage.h   ==> addNode    -
+		     makeNode   - 
+		     makePoset  - makes a linked list implementation of poset from input from file
+		     printPoset - Prints the list of posets
+
+nodes_manage.h   ==> addNode
+		     makeList
+
+
+** For all a common structure is used to arrange the data - sysCPS

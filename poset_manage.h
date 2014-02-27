@@ -1,32 +1,5 @@
-/*
-void addNode(char *call1, char *call2, struct sysCPS **headRef, struct sysCPS **tailRef){ 
-        struct sysCPS t, *tmp = (struct sysCPS *)malloc(sizeof(struct sysCPS));
-        memset(tmp, 0, sizeof(struct sysCPS));
-
-	tmp->call1 = strdup(call1);
-	tmp->call2 = strdup(call2);
-	tmp->next = NULL;
-
-        if(!(*headRef)) {
-		*headRef = tmp;
-		*tailRef = tmp;
-		return;
-	}
-
-       ///////////////////////////////////////
-        while(t->next) {
-                t = t->next;
-        }
-        t->next = tmp;
-        //////////////////////////////////////////
-
-        // modified by adding tailRef
-        (*tailRef)->next = tmp;
-        *tailRef = tmp;
-}
-*/
 // this also modified with tailRef
-void addNode(struct sysCPS **tmpRef, struct sysCPS **headRef, struct sysCPS **tailRef) {
+void addNode_poset(struct sysCPS **tmpRef, struct sysCPS **headRef, struct sysCPS **tailRef) {
         struct sysCPS *tmp = *headRef;
 
         if(!(*headRef)) {
@@ -39,22 +12,6 @@ void addNode(struct sysCPS **tmpRef, struct sysCPS **headRef, struct sysCPS **ta
         (*tailRef) = (*tmpRef);
 }
 	
-/*
-void makeSyscallList() {
-	char call[20];
-	FILE *file = fopen(sysFile, "r");
-
-	while(!feof(file)) {
-		fscanf(file, "%s\n", call);
-		headC[countC].call = strdup(call);
-		headC[countC].count = 0;
-		countC++;
-	}
-	
-	fclose(file);
-}
-*/
-
 struct sysCPS *makeNode(char *call, int t, struct sysCPS *tmpN) {
         struct sysCPS *tmp;
 
@@ -85,6 +42,7 @@ void makePoset(char *fileName) {
         while(!feof(file)) {
                 memset(call, 0, sizeof(call));
 		fscanf(file, "%s\n", call);
+		countPS++; // length of the poset members
 
                 if(strcmp(tmp, "") == 0) {
                         tmp = strdup(call);
@@ -107,7 +65,7 @@ void makePoset(char *fileName) {
                         random_var->next = NULL;
                         
                         tmp = strdup(call);
-                        addNode(&random_var, &head, &tail);
+                        addNode_poset(&random_var, &head, &tail);
                         k++;
                         // printf("\n TEST %s %d \n", call, k);
                 }
@@ -121,7 +79,7 @@ void makePoset(char *fileName) {
                         random_var->next = NULL;
                         
                         tmp = strdup(call);
-                        addNode(&random_var, &head, &tail);
+                        addNode_poset(&random_var, &head, &tail);
                         
                         // printf("\n %s %s \n", random_var->call1, call);
                         k = 1;
@@ -132,6 +90,17 @@ void makePoset(char *fileName) {
 	}
 
         fclose(file);
+}
+
+int lengthPoset(struct sysCPS *headRef) {
+	int l=0;
+
+	while(headRef) {
+		l++;
+		headRef = headRef->next;
+	}
+
+	return l;
 }
 
 void printPoset(struct sysCPS *headRef) {

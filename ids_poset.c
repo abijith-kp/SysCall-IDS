@@ -1,3 +1,7 @@
+/**
+ * To make signature from the input sequence of system calls
+**/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,24 +9,32 @@
 
 #include "data_structure.h"
 #include "poset_manage.h"
+#include "nodes_manage.h"
+#include "clean.h"
 
 int main(int argc, char **argv) {
-        // strcpy(appName, argv[1]);
-
-        // FILE *file = fopen(".ids/list", "r");
+        FILE *file = fopen(".ids/list", "r");
         char fileN[5];
-	// makeSyscallList();
 
         makePoset("input");
+        // printPoset(head);
+
+	// printf("\n %d \n", countPS);
+
+	clean();
         printPoset(head);
-        /*
+
         while(!feof(file)) {
-                fscanf(file, "%s\n", fileN);
-                // printf("\n %s \n", fileN);
-                makePoset(fileN); // created poset can be obtained using the variables head and tail
-                compareSet();
+                fscanf(file, "%s", fileN);
+                makePoset(fileN);
+		headSIG = head;
+		head = NULL;
+		tailSIG = tail;
+		tail = NULL;
+		countSIG = countT;
+		countT = 0;
+                // compareSet();
         }
-      */
 	
         return 0;
 }
