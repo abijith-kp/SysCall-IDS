@@ -16,7 +16,6 @@ int countPS=0;
 
 // for the current status of signature which will be written to a file later on
 struct sysCPS *headSIG = NULL, *tailSIG = NULL;
-int countSIG=0;
 
 // for temporary storage of input
 struct sysCPS *tmpHead = NULL, *tmpTail = NULL;
