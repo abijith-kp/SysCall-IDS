@@ -11,13 +11,15 @@
 #include "poset_manage.h"
 #include "nodes_manage.h"
 #include "clean.h"
+#include "lcs.h"
 
 int main(int argc, char **argv) {
-        FILE *file = fopen(".ids/list", "r");
+        // FILE *file = fopen(".ids/list", "r");
         char fileN[10];
 	int flag=0;
 
-        makePoset("input2");
+        makePoset(".ids/p1");
+        //printf("\ndsfdsf\n");
 	clean();
         printPoset(head);
 /*
@@ -26,7 +28,7 @@ int main(int argc, char **argv) {
 	clean();
         printPoset(head);
 */
-/*
+
         while(!feof(file)) {
                 fscanf(file, "%s\n", fileN);
                 makePoset(fileN);
@@ -41,10 +43,11 @@ int main(int argc, char **argv) {
 			flag = 1;
 			continue;
 		}
-		
-                // compareSet();  // compares headSIG and head (temparary head) and puts the signature in headSIG and the next temparary list in head
+		printf("\n%d\n", length_lcs(head, headSIG));
+                // compareSet();  // compares headSIG and head (temparary head) and puts the 
+                                  // signature in headSIG and the next temparary list in head
 		// interchanges the list values
         }
-*/	
+
         return 0;
 }
