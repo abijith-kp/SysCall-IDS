@@ -3,6 +3,21 @@
 **/
 
 
+void clear_val() {
+    int i=0, j=0;
+
+    for(i=0; i<5000; i++) {
+        for(j=0; j<5000; j++) {
+            if((i == 0) || (j == 0)) {
+                val[i][j] = 0;
+            }
+            else {
+            val[i][j] = -1;
+            }
+        }
+    }
+}
+
 struct sysCPS *getNNode(int n, struct sysCPS *headRef) {
 	struct sysCPS *tmp = headRef;
 
