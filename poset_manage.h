@@ -105,7 +105,7 @@ int lengthPoset(struct sysCPS *headRef) {
 
 void printPoset(struct sysCPS *headRef) {
         while(headRef) {
-                printf("%s \t %s \n", headRef->call1, headRef->call2);
+                printf("%s\t%s\n", headRef->call1, headRef->call2);
                 headRef = headRef->next;
         }
 }

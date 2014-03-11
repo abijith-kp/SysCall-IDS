@@ -14,25 +14,28 @@
 #include "lcs.h"
 
 int main(int argc, char **argv) {
-        // FILE *file = fopen(".ids/list", "r");
+        FILE *file = fopen(".ids/list", "r");
         char fileN[10];
 	int flag=0;
 
-        makePoset(".ids/p1");
+        //makePoset(".ids/p1");
         //printf("\ndsfdsf\n");
-	clean();
-        printPoset(head);
-/*
-	printf("\n\n");
-        makePoset("input1");
+	    // clean();
+        // printPoset(head);
+
+/*        makePoset("input1");
 	clean();
         printPoset(head);
 */
 
         while(!feof(file)) {
-                fscanf(file, "%s\n", fileN);
+                fscanf(file, "%s", fileN);
+	//printf("\n %s \n", fileN);
                 makePoset(fileN);
-		printf("\n%s\n", fileN);
+                clean();
+		// printf("\n%s\n", fileN);
+                printPoset(head);
+        printf("\n\n");
 		if(flag == 0) {
 			headSIG = head;
 			head = NULL;
@@ -44,6 +47,7 @@ int main(int argc, char **argv) {
 			continue;
 		}
 		printf("\n%d\n", length_lcs(head, headSIG));
+        break;
                 // compareSet();  // compares headSIG and head (temparary head) and puts the 
                                   // signature in headSIG and the next temparary list in head
 		// interchanges the list values
