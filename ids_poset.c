@@ -36,14 +36,18 @@ int main(int argc, char **argv) {
 			continue;
 		}
 
-        clear_val();
-		printf("\n%d\n", length_lcs(head, headSIG));
+//        clear_val();
+//		printf("\n%d\n", length_lcs(head, headSIG));
         break;
                 // compareSet();  // compares headSIG and head (temparary head) and puts the 
                                   // signature in headSIG and the next temparary list in head
 		// interchanges the list values
         }
 
+        printPoset(headSIG);
+        printf("\n\n");
+        printPoset(head);
+        printf("\n\n");
         printf("\n>> %d \n", lengthPoset(headSIG));
         printf("\n>> %d \n", lengthPoset(head));
         
