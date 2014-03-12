@@ -23,12 +23,4 @@ struct sysCPS *tmpHead = NULL, *tmpTail = NULL;
 // a random variable as a helper for making posets
 struct sysCPS* random_var;   
 
-/*
-struct sysC *headI = NULL, *tailI = NULL; // Initial list of log
-struct sysC *headR = NULL, *tailR = NULL; // 1st time R=I,
-struct sysC *headT = NULL, *tailT = NULL; // compare I R
-struct sysC *headTMP = NULL, *tailTMP = NULL; // compare I R
-struct sysC *headTD = NULL, *tailTD = NULL; // compare I R
-struct sysC *headSIG = NULL, *tailSIG = NULL; // compare I R
-struct sysC *headSIGBB = NULL, *tailSIGBB = NULL; // compare I R
-*/
+int val[5000][5000];

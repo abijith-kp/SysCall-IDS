@@ -7,8 +7,6 @@
 #include <string.h>
 #include <unistd.h>
 
-int val[5000][5000];
-
 #include "data_structure.h"
 #include "poset_manage.h"
 #include "nodes_manage.h"

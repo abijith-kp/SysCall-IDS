@@ -73,7 +73,6 @@ void clean() {
 				}
 				if((strcmp(tmpT->call1, tmp->call1) == 0) && (strcmp(tmpT->call2, tmp->call2) == 0)) {
 					tmp = tmp->next;
-					// continue;
 				}
 				else {
 					break;
@@ -88,12 +87,10 @@ void clean() {
 					prev->next = getNNode(countT, tmpH);
 					tmpH = prev->next;
 				}
-				//break;
 			}
 			else {
 				prev = tmpH;
 				tmpH = tmpH->next;
-				// break;
 			}
 
 		}
