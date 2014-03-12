@@ -1,0 +1,9 @@
+    this script helps to make the list of system calls from the log obtained
+    from online sources
+    
+    change the ROOT variable to adjust to the location of the dataset
+    
+    new directry will be created in each directory in the dataset which
+    contains the list of system calls in its own file
+
+    name of the file will be the corresponding process number
