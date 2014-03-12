@@ -31,16 +31,19 @@ int length_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
         return val[l1][l2];
     }
 
-    printf("%s\t%s\n", headRef1->call1, headRef2->call1);
-    if((headRef1->call1 == headRef2->call1) && (headRef1->call2 == headRef2->call2)) {
-        printf("%s\t%s\n", headRef1->call1, headRef1->call2);
-        val[l1][l2] = 1 + length_lcs(headRef1->next, headRef2->next);
+    // printf("%s\t%s\n", headRef1->call1, headRef2->call1);
+    if((!strcmp(headRef1->call1, headRef2->call1)) && (!strcmp(headRef1->call2, headRef2->call2))) {
+        printf("\nsdf\n");
+        // printf("%s\t%s\n", headRef1->call1, headRef1->call2);
+        t1 = length_lcs(headRef1->next, headRef2->next);
+        val[l1][l2] = (val[l1][l2] > (1 + t1))?val[l1][l2]:(1+t1);
     }
-    else if((headRef1->call1 != headRef2->call1) || (headRef1->call2 != headRef2->call2)) {
+    else if((strcmp(headRef1->call1, headRef2->call1)) || (strcmp(headRef1->call2, headRef2->call2))) {
         // printf("\n>>>>>><<<<<<   %d %d\n", lengthPoset(headRef1), lengthPoset(headRef2));
         t2 = length_lcs(headRef1, headRef2->next);
         t1 = length_lcs(headRef1->next, headRef2);
-        val[l1][l2] = (t1>t2)?t1:t2;
+        t =  (t1>t2)?t1:t2;
+        val[l1][l2] = (val[l1][l2]>t)?val[l1][l2]:t;
     }
     
     return val[l1][l2];

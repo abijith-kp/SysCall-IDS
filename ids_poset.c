@@ -60,13 +60,13 @@ int main(int argc, char **argv) {
 
         printf("\n>> %d \n", lengthPoset(headSIG));
         printf("\n>> %d \n", lengthPoset(head));
-        
+/*        
         for(i=0; i<200; i++) {
-            for(i=0; i<200; i++) {
+            for(j=0; j<200; j++) {
                 printf("%d ", val[i][j]);
             }
             printf("\n");
         }
-
+*/
         return 0;
 }
