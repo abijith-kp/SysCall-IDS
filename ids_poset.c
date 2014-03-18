@@ -16,7 +16,7 @@
 
 int main(int argc, char **argv) {
         FILE *file = fopen(".ids/list", "r");
-        char fileN[10];
+        char fileN[150];
 	int flag=0, i, j;
 
 //        printPoset(head);
