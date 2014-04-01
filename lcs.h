@@ -26,7 +26,7 @@ int length_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     return val[l1][l2];
 }
 
-
+/*
 int string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     int l1=0, l2=0, t=0, t1=0, t2=0, t3=0;
     struct sysCPS *tmpHead;
@@ -77,3 +77,4 @@ char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
 
 	
 }
+*/

@@ -12,13 +12,28 @@
 #include "nodes_manage.h"
 #include "clean.h"
 #include "lcs.h"
+#include "signature.h"
 
-
+/**
+ * list contains the names of the applications under consideration.
+ * each file in list has another set of list of file names which are the data
+ * set corresponding to that application.
+ **/
+    
 int main(int argc, char **argv) {
         FILE *file = fopen(".ids/list", "r");
         char fileN[10];
-	int flag=0, i, j;
+	    int flag=0, i, j;
 
+        // for signature creation
+        fscanf(file, "%s", fileN);
+        while(!feof(file)) {
+            printf("\nTEST\n");
+                create(fileN);
+                fscanf(file, "%s", fileN);
+		}
+
+/*
 //        printPoset(head);
 
         while(!feof(file)) {
@@ -46,6 +61,6 @@ int main(int argc, char **argv) {
 
         printf("\n>> %d \n", lengthPoset(headSIG));
         printf("\n>> %d \n", lengthPoset(head));
-        
+*/        
         return 0;
 }
