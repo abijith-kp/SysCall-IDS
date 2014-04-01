@@ -25,3 +25,16 @@ int length_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     
     return val[l1][l2];
 }
+
+char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
+	int l1=0, l2=0, t=0, t1=0, t2=0, t3=0;
+
+	l1 = lengthPoset(headRef1);
+	l2 = lengthPoset(headRef2);
+ 
+	if((headRef2 == NULL) || (headRef1 == NULL)) {
+        	return 0;
+    	}
+
+	
+}
