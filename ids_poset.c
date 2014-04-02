@@ -20,18 +20,36 @@
  * set corresponding to that application.
  **/
     
+/**
+ * if argv[1] == make
+ *      dataset is converted into signature
+ * else if argv == test
+ *      the input sequence is checked for anomaly
+ **/
+
 int main(int argc, char **argv) {
         FILE *file = fopen(".ids/list", "r");
         char fileN[10];
 	    int flag=0, i, j;
 
+        if(argc < 2) {
+                printf("\nERROR: Usage: %s <arg>\n", argv[0]);
+                exit(1);
+        }
+
+        if(!strcmp(argv[1], "make")) {
         // for signature creation
-        fscanf(file, "%s", fileN);
-        while(!feof(file)) {
-            printf("\nTEST\n");
-                create(fileN);
-                fscanf(file, "%s", fileN);
-		}
+            fscanf(file, "%s", fileN);
+            while(!feof(file)) {
+                    printf("\nTEST\n");
+                    create(fileN);
+                    fscanf(file, "%s", fileN);
+		    }
+        }
+
+        else if(!strcmp(argv[1], "test")) {
+
+        }
 
 /*
 //        printPoset(head);

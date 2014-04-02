@@ -13,7 +13,8 @@ void create(char *fileN) {
 	fscanf(file, "%s", name);
 	while(!feof(file)) {
     printf("\n%s\n", name);
-		makePoset(name);
+		    makePoset(name);
+            // printf("\nTRY  %s\n", head->call2);
                 clean();
                 if(flag == 0) {
                         headSIG = head;
@@ -36,11 +37,11 @@ void create(char *fileN) {
     strcat(sigFile, fileN);
     strcat(sigFile, ".sig");
     
-    printf("\nEND\n");
+    printf("\nEND  %s\n", headSIG->call2);
     tmp = headSIG;
     file = fopen(sigFile, "w");
     while(tmp) {
-    printf("\nEND %s\n", sigFile);
+        // printf("\nEND %s\n", sigFile);
         fprintf(file, "%s %s\n", tmp->call1, tmp->call2);
         tmp = tmp->next;
     }
