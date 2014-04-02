@@ -51,16 +51,18 @@ struct sysCPS *locate(struct sysCPS *headRef, struct sysCPS tmp) {
 // the signature file contains the processname and an extension name
 struct sysCPS *lcs(struct sysCPS *a, struct sysCPS *b, struct sysCPS *out) {
 	int longest = 0;
+	out = (struct sysCPS *)malloc();
 	int match(struct sysCPS *a, struct sysCPS *b, int dep) {
-		if (!a || !b) return 0;
+		if ((a == NULL) || (b == NULL)) return 0;
 		if (!*a || !*b) {
 			if (dep <= longest) return 0;
 			out[ longest = dep ] = NULL;
-			return 1;
+			return 1; 
 		}
  
 		if (!strcmp(a->call1, b->call1) && !strcmp(a->call2, b->call2))
-			return match(a->next, b->next, dep + 1) && (out[dep] = *a);
+			out[dep] = *a;
+			return match(a->next, b->next, dep + 1); 
  
 		return	match(a->next, b->next, dep) + 
 			match(locate(a, *b), b, dep) +
