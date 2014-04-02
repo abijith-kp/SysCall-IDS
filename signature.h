@@ -1,4 +1,17 @@
-void process_sig() {
+int n=0;
+double mean=0.0, dev=0.0;
+
+void findVal(int mismatch, int i) {
+    double var, t;
+
+    t = ((mean * n) + mismatch) / i;
+    var = (dev * dev) + (mismatch - t) * (mismatch - mean);
+    dev = sqrt(var);
+    mean = t;
+    n = i;
+}
+// returns the number of mismatches
+int process_sig() {
 
 }
 
@@ -7,6 +20,7 @@ void process_sig() {
 void create(char *fileN) {
 	FILE *file=fopen(fileN, "r");
     char sigFile[100], name[100];
+    int mismatch=0, i=0;
 
     struct sysCPS *tmp;
 
@@ -27,9 +41,10 @@ void create(char *fileN) {
 	                    fscanf(file, "%s", name);
                         continue;
 		}
-
-		process_sig(); // head and headSIG
-		// process signature
+        
+        i++;
+		mismatch = process_sig(); // head and headSIG process signature
+        findVal(mismatch, i);
 	    fscanf(file, "%s", name);
 	}
 
@@ -46,5 +61,11 @@ void create(char *fileN) {
         tmp = tmp->next;
     }
     fclose(file);
-	// write it into a file
+    
+    strcpy(sigFile, fileN);
+    strcat(sigFile, ".val");
+    
+    file = fopen(sigFile, "w");
+    fprintf(file, "%d %f %f\n", n, mean, dev);
+    fclose(file);
 }
