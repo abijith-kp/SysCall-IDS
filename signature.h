@@ -14,7 +14,9 @@ void findVal(int mismatch, int i) {
 
 void findMeanVar() {
     int i=0, t=0;
-
+    mean = 0.0;
+    dev = 0.0;
+    
     for(i=0; i<n; i++) {
         mean += list[i];
     }
@@ -28,13 +30,47 @@ void findMeanVar() {
     dev = sqrt(dev/n);
 }
 
-// returns the number of mismatches
-int process_sig() {
 
+// returns the number of mismatches
+int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
+
+}
+
+struct sysCPS *locate(struct sysCPS *headRef, struct sysCPS tmp) {
+	while(headRef) {
+		if (!strcmp(headRef->call1, tmp.call1) && !strcmp(headRef->call2, tmp.call2)) {
+			return headRef;
+		}
+		
+		headRef = headRef->next;
+	}
+	return NULL;
 }
 
 // File name gives the process name
 // the signature file contains the processname and an extension name
+struct sysCPS *lcs(struct sysCPS *a, struct sysCPS *b, struct sysCPS *out) {
+	int longest = 0;
+	int match(struct sysCPS *a, struct sysCPS *b, int dep) {
+		if (!a || !b) return 0;
+		if (!*a || !*b) {
+			if (dep <= longest) return 0;
+			out[ longest = dep ] = NULL;
+			return 1;
+		}
+ 
+		if (!strcmp(a->call1, b->call1) && !strcmp(a->call2, b->call2))
+			return match(a->next, b->next, dep + 1) && (out[dep] = *a);
+ 
+		return	match(a->next, b->next, dep) + 
+			match(locate(a, *b), b, dep) +
+			match(a, locate(b, *a), dep);
+	}
+
+	return match(a, b, 0) ? out : 0;
+}
+
+
 void create(char *fileN) {
 	FILE *file=fopen(fileN, "r");
     char sigFile[100], name[100];
@@ -51,8 +87,8 @@ void create(char *fileN) {
 	while(!feof(file)) {
     // printf("\n%s %d\n", name, i);
 		    makePoset(name);
-            // printf("\nTRY  %s\n", head->call2);
                 clean();
+    printf("\nTRY  %s  %d \n", name, lengthPoset(head));
                 if(flag == 0) {
                         headSIG = head;
                         head = NULL;
@@ -61,22 +97,24 @@ void create(char *fileN) {
                         countSIG = countT;
                         countT = 0;
                         flag = 1;
-	                    fscanf(file, "%s", name);
+	                fscanf(file, "%s", name);
+			// this is just a temporary means to calculate the values
                         list[n] = lengthPoset(headSIG);// findVal(mismatch, i);
                         continue;
 		}
         
         n++;
-		list[n] = lengthPoset(headSIG); //process_sig(); // head and headSIG process signature
+		list[n] = lengthPoset(head); //process_sig(); // head and headSIG process signature
         // findVal(mismatch, i);
 	    fscanf(file, "%s", name);
 	}
 
+    n++;
     fclose(file);
     strcat(sigFile, fileN);
     strcat(sigFile, ".sig");
     
-    printf("\nEND  %d\n", mismatch);
+    printf("\nEND  %d\n", n);
     tmp = headSIG;
     file = fopen(sigFile, "w");
     while(tmp) {

@@ -13,8 +13,8 @@
 #include "nodes_manage.h"
 #include "clean.h"
 #include "lcs.h"
-#include "signature.h"
 #include "check.h"
+#include "signature.h"
 
 /**
  * list contains the names of the applications under consideration.
