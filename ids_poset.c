@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "data_structure.h"
 #include "poset_manage.h"
@@ -13,6 +14,7 @@
 #include "clean.h"
 #include "lcs.h"
 #include "signature.h"
+#include "check.h"
 
 /**
  * list contains the names of the applications under consideration.
@@ -29,6 +31,7 @@
 
 int main(int argc, char **argv) {
         FILE *file = fopen(".ids/list", "r");
+        char *inputS=".ids/input";
         char fileN[10];
 	    int flag=0, i, j;
 
@@ -48,7 +51,7 @@ int main(int argc, char **argv) {
         }
 
         else if(!strcmp(argv[1], "test")) {
-
+            check(inputS);
         }
 
 /*

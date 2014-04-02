@@ -15,3 +15,7 @@ Files
                                         ** varience of number of mismatches
                                         ** format: n    m   v
                 input       ==> contains input sequnce to check for anomaly
+
+To compile and run:
+        gcc ids_poset.c -lm -o ids
+        ./ids
