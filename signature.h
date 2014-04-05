@@ -16,8 +16,10 @@ void findMeanVar() {
     int i=0, t=0;
     mean = 0.0;
     dev = 0.0;
+    n -= 1;
     
     for(i=0; i<n; i++) {
+        // printf("\n???????? %d\n", list[i]);
         mean += list[i];
     }
     mean /= n;
@@ -37,13 +39,14 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     int l=0;
 
     if(headRef1 == NULL) {
-        printf("\n?? %d\n", lengthPoset(head));
+        // printf("\n?? %d\n", lengthPoset(head));
         headSIG = head;
         return(lengthPoset(head));
     }
 
     sig = string_lcs(headRef1, headRef2);
-    // fprintf(file, "%s", sig);
+    // printf("\n%s\n", sig);
+    fprintf(file, "%s", sig);
     fclose(file);
 
     
@@ -73,7 +76,7 @@ void create(char *fileN) {
     // printf("\n%s %d\n", name, i);
 	        makePoset(name);
             clean();
-            // printf("\nTRY  %s  %d \n", name, lengthPoset(head));
+            printf("\nTRY  %s  %d \n", name, lengthPoset(head));
             if(flag == 0) {
                     list[n++] = process_sig(headSIG, head); //lengthPoset(headSIG);// findVal(mismatch, i);
                     // headSIG = head;
@@ -90,7 +93,7 @@ void create(char *fileN) {
                     continue;
             }
 
-    printf("\n>> %d %d\n", list[n-1], n-1);
+    // printf("\n>> %d %d %d %d\n", list[n-1], n-1, lengthPoset(headSIG), lengthPoset(head));
             // printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d\n", lengthPoset(headSIG), lengthPoset(head));
             // n++;
             list[n++] = process_sig(headSIG, head); //lengthPoset(head); //process_sig(); // head and headSIG process signature
@@ -122,9 +125,9 @@ void create(char *fileN) {
     strcat(sigFile, ".val");
     
     findMeanVar();
-    printf("\n%d %f %f\n", n, mean, dev);
     
     file = fopen(sigFile, "w");
     fprintf(file, "%d %f %f\n", n, mean, dev);
     fclose(file);
+    printf("\n%d %f %f\n", n, mean, dev);
 }
