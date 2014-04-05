@@ -68,9 +68,7 @@ char* lcs(struct sysCPS *a, struct sysCPS *b, char *out)
 	return match(a, b, 0) ? out : 0;
 }
 
-struct sStruct {
-    char *str;
-};
+;
 /*
 int *lcs2(struct sysCPS *a, struct sysCPS *b, int *out)
 {
@@ -101,6 +99,10 @@ int *lcs2(struct sysCPS *a, struct sysCPS *b, int *out)
 }
 */
 
+struct sStruct {
+    char *str;
+}
+
 int strlenN(char *str) {
     if(str) {
         return strlen(str);
@@ -108,6 +110,7 @@ int strlenN(char *str) {
 
     return 0;
 }
+
 struct sStruct array[1000][1000];
 char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     int l1=0, l2=0; 
@@ -128,33 +131,38 @@ char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     }
 
 
-    if(!strcmp(headRef1->call1, headRef2->call1)) { // && (!strcmp(headRef1->call2, headRef2->call2))) {
+    // printf("\n>>>> %s -- %s -- %s -- %s\n", headRef1->call1, headRef1->call2, headRef2->call1, headRef2->call2);
+    if(!strcmp(headRef1->call1, headRef2->call1)) { //&& (!strcmp(headRef1->call2, headRef2->call2))) {
         t1 = string_lcs(headRef1->next, headRef2->next);
         if(strlenN(array[l1][l2].str) <= (1 + strlenN(t1))) {
-            if(strlenN(array[l1][l2].str) == 0) {
-                printf("\nFFFFFF\n");
+            // if(strlenN(array[l1][l2].str) == 0) {
+                // printf("\nFFFFFF\n");
                 // array[l1][l2].str = malloc((3 + strlenN(t1) + strlenN(headRef1->call1)) * sizeof(char *));
-            }
+            // }
 
-            printf("\n%s -- %s -- %s\n", array[l1][l2].str, headRef1->call1, t1);
+            // printf("\n%s -- %s -- %s\n", array[l1][l2].str, headRef1->call1, t1);
 
             if(t1) {
                 if(array[l1][l2].str) {
                     array[l1][l2].str = malloc((2 + strlenN(array[l1][l2].str) + strlenN(t1) + strlenN(headRef1->call1)) * sizeof(char *));
-                    sprintf(array[l1][l2].str, "%s %s %s", array[l1][l2].str, headRef1->call1, t1);
+                        memset(array[l1][l2].str, 0, sizeof(array[l1][l2].str));
+                    sprintf(array[l1][l2].str, "%s%s\n%s", array[l1][l2].str, headRef1->call1, t1);
                 }
                 else {
                     array[l1][l2].str = malloc((1 + strlenN(t1) + strlenN(headRef1->call1)) * sizeof(char *));
-                    sprintf(array[l1][l2].str, "%s %s", headRef1->call1, t1);
+                        memset(array[l1][l2].str, 0, sizeof(array[l1][l2].str));
+                    sprintf(array[l1][l2].str, "%s\n%s", headRef1->call1, t1);
                 }
             }
             else {
                 if(array[l1][l2].str) {
                     array[l1][l2].str = malloc((2 + strlenN(array[l1][l2].str) + strlenN(headRef1->call1)) * sizeof(char *));
-                    sprintf(array[l1][l2].str, "%s %s", array[l1][l2].str, headRef1->call1);
+                        memset(array[l1][l2].str, 0, sizeof(array[l1][l2].str));
+                    sprintf(array[l1][l2].str, "%s%s", array[l1][l2].str, headRef1->call1);
                 }
                 else {
                     array[l1][l2].str = strdup(headRef1->call1);
+                    strcat(array[l1][l2].str, "\n");
                 }
             }
         }

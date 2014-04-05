@@ -30,49 +30,22 @@ void findMeanVar() {
     dev = sqrt(dev/n);
 }
 
-
 // returns the length of the larget common subsequnce in the two lists
 int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
-    return(lengthPoset(headRef2));
-}
+    char *sig;
+    FILE *file=fopen(".tmp", "w");
 
-/*
-struct sysCPS *locate(struct sysCPS *headRef, struct sysCPS tmp) {
-	while(headRef) {
-		if (!strcmp(headRef->call1, tmp.call1) && !strcmp(headRef->call2, tmp.call2)) {
-			return headRef;
-		}
-		
-		headRef = headRef->next;
-	}
-	return NULL;
-}
+    sig = string_lcs(headRef1, headRef2);
+    printf("\n>> %d\n", strlenN(sig));
+    // fprintf(file, "%s", sig);
+    fclose(file);
 
-// File name gives the process name
-// the signature file contains the processname and an extension name
-struct sysCPS *lcs(struct sysCPS *a, struct sysCPS *b, struct sysCPS *out) {
-	int longest = 0;
-	out = (struct sysCPS *)malloc();
-	int match(struct sysCPS *a, struct sysCPS *b, int dep) {
-		if ((a == NULL) || (b == NULL)) return 0;
-		if (!*a || !*b) {
-			if (dep <= longest) return 0;
-			out[ longest = dep ] = NULL;
-			return 1; 
-		}
- 
-		if (!strcmp(a->call1, b->call1) && !strcmp(a->call2, b->call2))
-			out[dep] = *a;
-			return match(a->next, b->next, dep + 1); 
- 
-		return	match(a->next, b->next, dep) + 
-			match(locate(a, *b), b, dep) +
-			match(a, locate(b, *a), dep);
-	}
+    
+    makePoset(".tmp");
+    headSIG = head;
 
-	return match(a, b, 0) ? out : 0;
+    return(lengthPoset(headSIG));
 }
-*/
 
 
 // create a function to incorporate branches into the signature
@@ -119,7 +92,7 @@ void create(char *fileN) {
     strcat(sigFile, fileN);
     strcat(sigFile, ".sig");
     
-    printf("\nEND  %d\n", list[0]);
+    // printf("\nEND  %d\n", list[0]);
     tmp = headSIG;
     file = fopen(sigFile, "w");
     while(tmp) {
