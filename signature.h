@@ -34,17 +34,24 @@ void findMeanVar() {
 int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     char *sig;
     FILE *file=fopen(".tmp", "w");
+    int l=0;
+
+    if(headRef1 == NULL) {
+        printf("\n?? %d\n", lengthPoset(head));
+        headSIG = head;
+        return(lengthPoset(head));
+    }
 
     sig = string_lcs(headRef1, headRef2);
-    printf("\n>> %d\n", strlenN(sig));
     // fprintf(file, "%s", sig);
     fclose(file);
 
     
     makePoset(".tmp");
     headSIG = head;
-
-    return(lengthPoset(headSIG));
+    l = lengthPoset(headSIG);
+    // printf("\n>> %d  %d\n", strlenN(sig), l);
+    return(l);
 }
 
 
@@ -53,9 +60,9 @@ void create(char *fileN) {
 	FILE *file=fopen(fileN, "r");
     char sigFile[100], name[100];
     int mismatch=0, i=0, flag=0;
-
     struct sysCPS *tmp;
 
+    headSIG = NULL;
     n = 0;
     mean = 0.0;
     dev = 0.0;
@@ -66,10 +73,10 @@ void create(char *fileN) {
     // printf("\n%s %d\n", name, i);
 	        makePoset(name);
             clean();
-            printf("\nTRY  %s  %d \n", name, lengthPoset(head));
+            // printf("\nTRY  %s  %d \n", name, lengthPoset(head));
             if(flag == 0) {
                     list[n++] = process_sig(headSIG, head); //lengthPoset(headSIG);// findVal(mismatch, i);
-                    headSIG = head;
+                    // headSIG = head;
                     head = NULL;
                     tailSIG = tail;
                     tail = NULL;
@@ -77,14 +84,23 @@ void create(char *fileN) {
                     countT = 0;
                     flag = 1;
 	                fscanf(file, "%s", name);
+            // if(headSIG == NULL) {
+            //}
 			// this is just a temporary means to calculate the values
                     continue;
             }
-            
+
+    printf("\n>> %d %d\n", list[n-1], n-1);
+            // printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d\n", lengthPoset(headSIG), lengthPoset(head));
             // n++;
             list[n++] = process_sig(headSIG, head); //lengthPoset(head); //process_sig(); // head and headSIG process signature
-        // findVal(mismatch, i);
-        fscanf(file, "%s", name);
+            // printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d\n", lengthPoset(headSIG), lengthPoset(head));
+            head = NULL;
+            tailSIG = tail;
+            tail = NULL;
+            countSIG = countT;
+            countT = 0;
+            fscanf(file, "%s", name);
     }
 
     // n++;
