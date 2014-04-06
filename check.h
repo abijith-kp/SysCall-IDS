@@ -4,6 +4,7 @@ void loadSig(char *siglist) {
 
 int compare() {
 
+    return 0;
 }
 
 void evalScore() {

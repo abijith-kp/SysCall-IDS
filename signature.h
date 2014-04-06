@@ -61,10 +61,11 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
 // create a function to incorporate branches into the signature
 void create(char *fileN) {
 	FILE *file=fopen(fileN, "r");
-    char sigFile[100], name[100];
+    char sigFile[250], name[100];
     int mismatch=0, i=0, flag=0;
     struct sysCPS *tmp;
 
+    strcpy(sigFile, "");
     headSIG = NULL;
     n = 0;
     mean = 0.0;
@@ -105,7 +106,6 @@ void create(char *fileN) {
             countT = 0;
             fscanf(file, "%s", name);
     }
-
     // n++;
     fclose(file);
     strcat(sigFile, fileN);
@@ -115,8 +115,9 @@ void create(char *fileN) {
     tmp = headSIG;
     file = fopen(sigFile, "w");
     while(tmp) {
-        // printf("\nEND %s\n", sigFile);
+            // printf("\nNOT TRY %s %s\n", tmp->call1, tmp->call2);
         fprintf(file, "%s %s\n", tmp->call1, tmp->call2);
+            // printf("\n>> NOT TRY\n");
         tmp = tmp->next;
     }
     fclose(file);

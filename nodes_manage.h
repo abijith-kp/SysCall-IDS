@@ -16,12 +16,10 @@ void addNode_node(char call[20], struct sysCPS **headRef, struct sysCPS **tailRe
 }
 
 struct sysCPS *makeList(char *fileName) {
-	int i=0;
 	char call[20];
         countI = 0;
 
 	FILE *file = fopen(fileName, "r");
-	int k=0;
 
 	struct sysCPS *tmpH = NULL;
 	struct sysCPS *tmpT = NULL;

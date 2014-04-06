@@ -32,8 +32,7 @@
 int main(int argc, char **argv) {
         FILE *file = fopen(".ids/list", "r");
         char *inputS=".ids/input";
-        char fileN[10];
-	    int flag=0, i, j;
+        char fileN[60];
 
         if(argc < 2) {
                 printf("\nERROR: Usage: %s <arg>\n", argv[0]);
@@ -42,6 +41,7 @@ int main(int argc, char **argv) {
 
         if(!strcmp(argv[1], "make")) {
         // for signature creation
+        // details regarding branches also need to b added for completion
             fscanf(file, "%s", fileN);
             while(!feof(file)) {
                     printf("\nTEST\n");
@@ -54,6 +54,5 @@ int main(int argc, char **argv) {
             check(inputS);
         }
 
-        printf("\nsadsadsadsdsadsadsadsdadsa\n");
         return 0;
 }
