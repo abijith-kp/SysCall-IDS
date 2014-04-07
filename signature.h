@@ -1,7 +1,9 @@
 int n=0, list[1000];
 double mean=0.0, dev=0.0;
 
-// this only works at runtime feed back system
+/**
+ * this only works at runtime feed back system
+ **/
 void findVal(int mismatch, int i) {
     double var, t;
 
@@ -19,50 +21,51 @@ void findMeanVar() {
     n -= 1;
     
     for(i=0; i<n; i++) {
-        // printf("\n???????? %d\n", list[i]);
         mean += list[i];
     }
     mean /= n;
 
     for(i=0; i<n; i++) {
         t = mean - list[i];
-        // t = t * t;
         dev += (t * t);
     }
     dev = sqrt(dev/n);
 }
 
-// returns the length of the larget common subsequnce in the two lists
+/**
+ * returns the length of the larget common subsequnce in the two lists
+ **/
 int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     char *sig;
-    FILE *file=fopen(".tmp", "w");
+    FILE *file=fopen(tmpF, "w");
     int l=0;
 
     if(headRef1 == NULL) {
-        // printf("\n?? %d\n", lengthPoset(head));
         headSIG = head;
         return(lengthPoset(head));
     }
 
-    sig = string_lcs(headRef1, headRef2);
-    // printf("\n%s\n", sig);
+    /***************************************************************
+     * string_lcs needs is replaced with the optimised version v2
+     ***************************************************************/
+    sig = string_lcs_v2(headRef1, headRef2, lengthPoset(headRef1), lengthPoset(headRef2));
     fprintf(file, "%s", sig);
     fclose(file);
-
     
-    makePoset(".tmp");
+    makePoset(tmpF);
     headSIG = head;
     l = lengthPoset(headSIG);
-    // printf("\n>> %d  %d\n", strlenN(sig), l);
     return(l);
 }
 
 
-// create a function to incorporate branches into the signature
+/**
+ * create a function to incorporate branches into the signature
+ **/
 void create(char *fileN) {
 	FILE *file=fopen(fileN, "r");
     char sigFile[250], name[100];
-    int mismatch=0, i=0, flag=0;
+    int mismatch=0, i=0, flag=0, l1=0, l2=0;
     struct sysCPS *tmp;
 
     strcpy(sigFile, "");
@@ -71,37 +74,27 @@ void create(char *fileN) {
     mean = 0.0;
     dev = 0.0;
 
+    printf("\nProcessing dataset: %s\n", fileN);
 	fscanf(file, "%s", name);
-    // i++;
 	while(!feof(file)) {
-    // printf("\n%s %d\n", name, i);
 	        makePoset(name);
             clean();
-            printf("\nTRY  %s  %d \n", name, lengthPoset(head));
+            l1 = lengthPoset(head);
             if(flag == 0) {
-                    list[n++] = process_sig(headSIG, head); //lengthPoset(headSIG);// findVal(mismatch, i);
-                    // headSIG = head;
-                    // freeNode(head);
+                    list[n++] = process_sig(headSIG, head);
                     head = NULL;
                     tailSIG = tail;
                     tail = NULL;
                     countSIG = countT;
                     countT = 0;
                     flag = 1;
+                    printf("\tProcessed file: %s\n\tProcessed value: %d\n", name, list[n-1]);
 	                fscanf(file, "%s", name);
-            // if(headSIG == NULL) {
-            //}
-			// this is just a temporary means to calculate the values
                     continue;
             }
 
-    // printf("\n>> %d %d %d %d\n", list[n-1], n-1, lengthPoset(headSIG), lengthPoset(head));
-            printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d %d\n", lengthPoset(headSIG), lengthPoset(head), list[n-1]);
-            // n++;
-            list[n++] = process_sig(headSIG, head); //lengthPoset(head); //process_sig(); // head and headSIG process signature
-            printf("\n>> NOT TRY\n");
-            // printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d\n", lengthPoset(headSIG), lengthPoset(head));
-            // freeNode(head);
+            list[n++] = process_sig(headSIG, head);
+            printf("\tProcessed file: %s\n\tProcessed value: %d\n", name, list[n-1]);
             head = NULL;
             tailSIG = tail;
             tail = NULL;
@@ -109,16 +102,18 @@ void create(char *fileN) {
             countT = 0;
             fscanf(file, "%s", name);
     }
-    // n++;
+
     fclose(file);
     strcat(sigFile, fileN);
     strcat(sigFile, ".sig");
     
-    // printf("\nEND  %d\n", list[0]);
+    /**
+     * signature file format:
+     *          call1 call2
+     **/
     tmp = headSIG;
     file = fopen(sigFile, "w");
     while(tmp) {
-            // printf("\nNOT TRY %s %s\n", tmp->call1, tmp->call2);
         fprintf(file, "%s %s\n", tmp->call1, tmp->call2);
         tmp = tmp->next;
     }
@@ -128,15 +123,25 @@ void create(char *fileN) {
     strcpy(sigFile, fileN);
     strcat(sigFile, ".val");
     
+    /**
+     * value file format
+     *          n       mean            dev
+     *        number    mean of the   deviation of the
+     *                  list          list
+     **/
     findMeanVar();
     
     file = fopen(sigFile, "w");
     fprintf(file, "%d %f %f\n", n, mean, dev);
     fclose(file);
 
-    file = fopen(".ids/siglist", "a");
+    file = fopen(siglist, "a");
     fprintf(file, "%s %s\n", name, sigFile);
     fclose(file);
 
-    printf("\n%d %f %f\n", n, mean, dev);
+    /**
+     * siglist file format
+     *          <sig file name> <val file name>
+     **/
+    printf("\tn: %d\tmean: %f\tdev: %f\n", n, mean, dev);
 }

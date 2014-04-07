@@ -1,6 +1,5 @@
 // this also modified with tailRef
 void addNode_poset(struct sysCPS **tmpRef, struct sysCPS **headRef, struct sysCPS **tailRef) {
-        // struct sysCPS *tmp = *headRef;
         if(!(*headRef)) {
                 *headRef = *tmpRef;
                 *tailRef = *tmpRef;

@@ -30,8 +30,7 @@
  **/
 
 int main(int argc, char **argv) {
-        FILE *file = fopen(".ids/list", "r");
-        char *inputS=".ids/input";
+        FILE *file = fopen(lists, "r");
         char fileN[60];
 
         if(argc < 2) {
@@ -40,16 +39,20 @@ int main(int argc, char **argv) {
         }
 
         if(!strcmp(argv[1], "make")) {
-        // for signature creation
-        // details regarding branches also need to b added for completion
+        /**
+         * for signature creation
+         * details regarding branches also need to b added for completion
+         **/
             fscanf(file, "%s", fileN);
             while(!feof(file)) {
-                    printf("\nTEST\n");
                     create(fileN);
                     fscanf(file, "%s", fileN);
 		    }
         }
 
+        /**
+         * inputS contains list of files which is to be compared for anomality check
+         **/
         else if(!strcmp(argv[1], "test")) {
             check(inputS);
         }

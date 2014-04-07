@@ -1,5 +1,9 @@
 char *logFile = "log", *logDict = "dict", *sysFile = "syscall", *sigFile = "signature", appName[100];
-
+char *lists = ".ids/list";
+char *inputS = ".ids/input";
+char *siglist = ".ids/siglist";
+char *tmpF = ".tmp";
+char *tmpSigF = ".tmpSig";
 
 int countC = 0, countI = 0, countR = 0, countT = 0, countTD = 0, countSIG = 0, countSIGBB = 0, flag = 0, continueFlag = 0;
 
@@ -9,6 +13,11 @@ struct sysCPS {
 	char *call2;
 	struct sysCPS *next;
 };
+
+struct sStruct {
+    char *str;
+};
+
 
 // for converting files to posets and making the signature during iteration
 struct sysCPS *head = NULL, *tail = NULL;
@@ -24,3 +33,4 @@ struct sysCPS *tmpHead = NULL, *tmpTail = NULL;
 struct sysCPS* random_var;   
 
 int val[5000][5000];
+struct sStruct array[1000][1000];

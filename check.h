@@ -1,75 +1,75 @@
-// void loadSig(char *siglist) {
-// 
-// }
 struct sysCPS *inputHEAD = NULL;
 
-// void compare(struct sysCPS *inp, char *name1, char *name2) {
-void compare(struct sysCPS *inp, struct sysCPS *name1, char *name2) {
+void compare(struct sysCPS *inp, char *name1, char *name2) {
     char *str;
     int lS=0, lL=0, lI=0, n=0;
-    FILE *file=fopen(".tmpSig", "w");
+    FILE *file=fopen(tmpSigF, "w");
     float m=0.0, v=0.0;
 
-    // loading signatures
-    // makePoset(name1);
-    lS = lengthPoset(name1);
+    makePoset(name1);
+    lS = lengthPoset(head);
     lI = lengthPoset(inp);
-    printf("\n>>>><<<\n");
-    str = string_lcsV2(inputHEAD, name1, lI, lS); //head);
-    printf("\n%d %d\n", lengthPoset(inputHEAD), lengthPoset(head));
+    str = string_lcs_v2(inp, head, lI, lS);
     
-    // freeArray(lI, lS);
-    printf("\n>>>>#######<<<\n");
-    // freeNode(head);
     fprintf(file, "%s", str);
     fclose(file);
-    makePoset(".tmpSig");
+    makePoset(tmpSigF);
     lL = lengthPoset(head);
 
 
-    printf("\nLS:%d LL:%d LI:%d\n", lS, lL, lI);
     file = fopen(name2, "r");
     fscanf(file, "%d %f %f", &n, &m, &v);
     fclose(file);
 
-    // condition to check for anomaly
+    /*********************************
+     * condition to check for anomaly
+     * has to modify it some more
+     *********************************/
     if(((lL < (lS + v)) && (lL > (lS - v))) || ((lL < (lI + v)) && (lL > (lI - v)))) {
         printf("\nNORMAL BEHAVIOUR\n");
     }
     else {
         printf("\nABNORMAL BEHAVIOUR\n");
     }
-    // return 0;
 }
 
-void evalScore() {
-// userfeed back  can be included here
-}
+/**
+ * void evalScore() {
+ * userfeed back  can be included here
+ * }
+ **/
 
 void check(char *input) {
-    FILE *file=fopen(input, "r");
-    char name1[100], name2[100];
+    FILE *fileI = fopen(input, "r");
+    FILE *fileS = fopen(siglist, "r");
+    char name1[100], name2[100], name3[100];
      
     int i=0;
     makePoset(input);
     clean();
     inputHEAD = head;
     head = NULL;
-    // loadSig(".ids/siglist");
 
-    file = fopen(".ids/siglist", "r");
-    fscanf(file, "%s %s", name1, name2);
-    // for sig in list of signature
-    while(!feof(file)) {
-        // compare(inputHEAD, name1, name2);
-        makePoset(name1);
-        printf("\n%s %s %d %d\n", name1, name2, lengthPoset(inputHEAD), lengthPoset(head));
-        compare(inputHEAD, head, name2);
-        fscanf(file, "%s %s", name1, name2);
-        // i++;
+    fscanf(fileI, "%s", name3);
+    while(!feof(fileI)) {
+        fileS = fopen(siglist, "r");
+        fscanf(fileS, "%s %s", name1, name2);
+        makePoset(name3);
+        /**
+         * for sig in list of signature
+         **/
+        while(!feof(fileS)) {
+            compare(head, name1, name2);
+            fscanf(fileS, "%s %s", name1, name2);
+        }
+        fclose(fileS);
     }
 
-    // evalScore(resut_score, );
-    // find the number of mismatches usign the same algorithm to find mean and varience
-    // then compare it with the signature values
+    fclose(fileI);
+
+    /***********************************************************************************
+     * evalScore(resut_score, );
+     * find the number of mismatches usign the same algorithm to find mean and varience
+     * then compare it with the signature values
+     ***********************************************************************************/
 }
