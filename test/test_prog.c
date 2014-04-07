@@ -101,7 +101,8 @@ int *lcs2(struct sysCPS *a, struct sysCPS *b, int *out)
 
 struct sStruct {
     char *str;
-}
+};
+struct sStruct array[1000][1000];
 
 int strlenN(char *str) {
     if(str) {
@@ -111,7 +112,17 @@ int strlenN(char *str) {
     return 0;
 }
 
-struct sStruct array[1000][1000];
+void freeArray(int l1, int l2) {
+    int i=0, j=0;
+
+    printf("\ndfdfdfdfdf\n");
+    for(i=1; i<=l1; i++) {
+        for(j=1; j<=l2; j++) {
+            array[i][j].str = "";
+        }
+    }
+}
+
 char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     int l1=0, l2=0; 
     char *t, *t1, *t2, *t3;
@@ -174,7 +185,8 @@ char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
         array[l1][l2].str = (strlenN(array[l1][l2].str)>strlenN(t))?array[l1][l2].str:t;
     }
     
-    return array[l1][l2].str;
+    t = array[l1][l2].str;
+    return t;
 }
 
 
@@ -192,6 +204,7 @@ int main(int argc, char **argv) {
     // printf("\nJUST %d %d\n", lengthPoset(head), lengthPoset(headRef));
     // tmp = lcs2(headRef, head, buf);
     tmp = string_lcs(headRef, head);
+    freeArray(lengthPoset(headRef), lengthPoset(head));
     if(tmp)
     printf("\nJUST %d %d\n", lengthPoset(head), lengthPoset(headRef));
     // sscanf(tmp, "%d", &t);

@@ -3,25 +3,28 @@
 // }
 struct sysCPS *inputHEAD = NULL;
 
-void compare(struct sysCPS *inp, char *name1, char *name2) {
+// void compare(struct sysCPS *inp, char *name1, char *name2) {
+void compare(struct sysCPS *inp, struct sysCPS *name1, char *name2) {
     char *str;
     int lS=0, lL=0, lI=0, n=0;
     FILE *file=fopen(".tmpSig", "w");
     float m=0.0, v=0.0;
 
     // loading signatures
-    makePoset(name1);
+    // makePoset(name1);
+    str = string_lcs(inputHEAD, name1); //head);
     printf("\n%d %d\n", lengthPoset(inputHEAD), lengthPoset(head));
-    str = string_lcs(inputHEAD, head); //head);
-    lS = lengthPoset(head);
-
+    lS = lengthPoset(name1);
+    lI = lengthPoset(inp);
+    printf("\n>>>><<<\n");
+    // freeArray(lI, lS);
+    printf("\n>>>>#######<<<\n");
     // freeNode(head);
     fprintf(file, "%s", str);
     fclose(file);
     makePoset(".tmpSig");
     lL = lengthPoset(head);
 
-    lI = lengthPoset(inp);
 
     printf("\nLS:%d LL:%d LI:%d\n", lS, lL, lI);
     file = fopen(name2, "r");
@@ -57,8 +60,10 @@ void check(char *input) {
     fscanf(file, "%s %s", name1, name2);
     // for sig in list of signature
     while(!feof(file)) {
-        printf("\n%s %s %d\n", name1, name2, lengthPoset(inputHEAD));
-        compare(inputHEAD, name1, name2);
+        // compare(inputHEAD, name1, name2);
+        makePoset(name1);
+        printf("\n%s %s %d\n", name1, name2, lengthPoset(head));
+        compare(inputHEAD, head, name2);
         fscanf(file, "%s %s", name1, name2);
         // i++;
     }

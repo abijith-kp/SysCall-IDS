@@ -39,6 +39,27 @@ int strlenN(char *str) {
 
     return 0;
 }
+/*
+void freeArray(int l1, int l2) {
+    int i=0, j=0;
+
+    for(i=1, i<=l1; i++) {
+        for(j=1, j<=l2; j++) {
+            free(array[i][j].str);
+        }
+    }
+}
+*/
+void freeArray(int l1, int l2) {
+    int i=0, j=0;
+
+    printf("\ndfdfdfdfdf\n");
+    for(i=1; i<=l1; i++) {
+        for(j=1; j<=l2; j++) {
+            array[i][j].str = NULL;
+        }
+    }
+}
 
 char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     int l1=0, l2=0; 
@@ -48,7 +69,7 @@ char *string_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     l2 = lengthPoset(headRef2);
 
     if((headRef2 == NULL) || (headRef1 == NULL)) {
-        return NULL;
+        return "";
     }
 
     if(strlenN(array[l1][l2].str) > 0) {
