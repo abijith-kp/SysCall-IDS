@@ -12,11 +12,12 @@ void compare(struct sysCPS *inp, struct sysCPS *name1, char *name2) {
 
     // loading signatures
     // makePoset(name1);
-    str = string_lcs(inputHEAD, name1); //head);
-    printf("\n%d %d\n", lengthPoset(inputHEAD), lengthPoset(head));
     lS = lengthPoset(name1);
     lI = lengthPoset(inp);
     printf("\n>>>><<<\n");
+    str = string_lcsV2(inputHEAD, name1, lI, lS); //head);
+    printf("\n%d %d\n", lengthPoset(inputHEAD), lengthPoset(head));
+    
     // freeArray(lI, lS);
     printf("\n>>>>#######<<<\n");
     // freeNode(head);
@@ -62,7 +63,7 @@ void check(char *input) {
     while(!feof(file)) {
         // compare(inputHEAD, name1, name2);
         makePoset(name1);
-        printf("\n%s %s %d\n", name1, name2, lengthPoset(head));
+        printf("\n%s %s %d %d\n", name1, name2, lengthPoset(inputHEAD), lengthPoset(head));
         compare(inputHEAD, head, name2);
         fscanf(file, "%s %s", name1, name2);
         // i++;
