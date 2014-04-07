@@ -81,6 +81,7 @@ void create(char *fileN) {
             if(flag == 0) {
                     list[n++] = process_sig(headSIG, head); //lengthPoset(headSIG);// findVal(mismatch, i);
                     // headSIG = head;
+                    // freeNode(head);
                     head = NULL;
                     tailSIG = tail;
                     tail = NULL;
@@ -95,10 +96,12 @@ void create(char *fileN) {
             }
 
     // printf("\n>> %d %d %d %d\n", list[n-1], n-1, lengthPoset(headSIG), lengthPoset(head));
-            // printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d\n", lengthPoset(headSIG), lengthPoset(head));
+            printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d %d\n", lengthPoset(headSIG), lengthPoset(head), list[n-1]);
             // n++;
             list[n++] = process_sig(headSIG, head); //lengthPoset(head); //process_sig(); // head and headSIG process signature
+            printf("\n>> NOT TRY\n");
             // printf("\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFF %d  %d\n", lengthPoset(headSIG), lengthPoset(head));
+            // freeNode(head);
             head = NULL;
             tailSIG = tail;
             tail = NULL;
@@ -117,11 +120,11 @@ void create(char *fileN) {
     while(tmp) {
             // printf("\nNOT TRY %s %s\n", tmp->call1, tmp->call2);
         fprintf(file, "%s %s\n", tmp->call1, tmp->call2);
-            // printf("\n>> NOT TRY\n");
         tmp = tmp->next;
     }
     fclose(file);
-    
+   
+    strcpy(name, sigFile);
     strcpy(sigFile, fileN);
     strcat(sigFile, ".val");
     
@@ -130,5 +133,10 @@ void create(char *fileN) {
     file = fopen(sigFile, "w");
     fprintf(file, "%d %f %f\n", n, mean, dev);
     fclose(file);
+
+    file = fopen(".ids/siglist", "a");
+    fprintf(file, "%s %s\n", name, sigFile);
+    fclose(file);
+
     printf("\n%d %f %f\n", n, mean, dev);
 }

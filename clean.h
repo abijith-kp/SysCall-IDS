@@ -2,6 +2,16 @@
  * stage1
 **/
 
+void freeNode(struct sysCPS *headRef) {
+    struct sysCPS *tmp=headRef;
+    
+    printf("\ndfdsfdf\n");
+    while(tmp) {
+        headRef = headRef->next;
+        free(tmp);
+        tmp = headRef;
+    }
+}
 
 void clear_val() {
     int i=0, j=0;

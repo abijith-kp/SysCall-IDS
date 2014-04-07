@@ -1,4 +1,4 @@
-a.val
-b.val
-c.val
-p.val
+.ids/login.sig .ids/login.val
+.ids/a.sig .ids/a.val
+.ids/b.sig .ids/b.val
+.ids/p.sig .ids/p.val
