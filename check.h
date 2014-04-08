@@ -1,5 +1,11 @@
 struct sysCPS *inputHEAD = NULL;
 
+/***********************************************************
+ * has to add branches to the signature
+ * identify a metric to identify attack
+ * currently mean and varience are used to calculate the abnormality in the process behaviour
+ ***********************************************************/
+
 void compare(struct sysCPS *inp, char *name1, char *name2) {
     char *str;
     int lS=0, lL=0, lI=0, n=0;
@@ -26,10 +32,10 @@ void compare(struct sysCPS *inp, char *name1, char *name2) {
      * has to modify it some more
      *********************************/
     if(((lL < (lS + v)) && (lL > (lS - v))) || ((lL < (lI + v)) && (lL > (lI - v)))) {
-        printf("\nNORMAL BEHAVIOUR\n");
+        printf("\t\tNORMAL BEHAVIOUR\n");
     }
     else {
-        printf("\nABNORMAL BEHAVIOUR\n");
+        printf("\t\tABNORMAL BEHAVIOUR\n");
     }
 }
 
@@ -41,17 +47,22 @@ void compare(struct sysCPS *inp, char *name1, char *name2) {
 
 void check(char *input) {
     FILE *fileI = fopen(input, "r");
-    FILE *fileS = fopen(siglist, "r");
+    FILE *fileS; // = fopen(siglist, "r");
     char name1[100], name2[100], name3[100];
+
+    printf("\nProcessing input file: %s\n", input);
      
-    int i=0;
-    makePoset(input);
-    clean();
-    inputHEAD = head;
-    head = NULL;
+    /**
+     * int i=0;
+     * makePoset(input);
+     * clean();
+     * inputHEAD = head;
+     * head = NULL;
+     **/
 
     fscanf(fileI, "%s", name3);
     while(!feof(fileI)) {
+        printf("\tFile: %s\n", name3);
         fileS = fopen(siglist, "r");
         fscanf(fileS, "%s %s", name1, name2);
         makePoset(name3);
@@ -59,6 +70,7 @@ void check(char *input) {
          * for sig in list of signature
          **/
         while(!feof(fileS)) {
+            printf("\t\tSigFile: %s\n", name1);
             compare(head, name1, name2);
             fscanf(fileS, "%s %s", name1, name2);
         }

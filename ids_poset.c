@@ -15,14 +15,15 @@
 #include "lcs.h"
 #include "signature.h"
 #include "check.h"
+#include "help.h"
 
 /**
  * list contains the names of the applications under consideration.
  * each file in list has another set of list of file names which are the data
  * set corresponding to that application.
- **/
-    
-/**
+ * 
+ * remove the siglist file before running if it exists
+ *
  * if argv[1] == make
  *      dataset is converted into signature
  * else if argv == test
@@ -55,6 +56,13 @@ int main(int argc, char **argv) {
          **/
         else if(!strcmp(argv[1], "test")) {
             check(inputS);
+        }
+        
+        /*
+         * help
+         **/
+        else if(!strcmp(argv[1], "help")) {
+            help(argv[0]);
         }
 
         return 0;
