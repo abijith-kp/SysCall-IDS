@@ -66,14 +66,17 @@ void check(char *input) {
         fileS = fopen(siglist, "r");
         fscanf(fileS, "%s %s", name1, name2);
         makePoset(name3);
+	clean();
+	inputHEAD = head;
         /**
          * for sig in list of signature
          **/
         while(!feof(fileS)) {
             printf("\t\tSigFile: %s\n", name1);
-            compare(head, name1, name2);
+            compare(inputHEAD, name1, name2);
             fscanf(fileS, "%s %s", name1, name2);
         }
+    	fscanf(fileI, "%s", name3);
         fclose(fileS);
     }
 
