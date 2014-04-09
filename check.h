@@ -27,6 +27,7 @@ void compare(struct sysCPS *inp, char *name1, char *name2) {
     fscanf(file, "%d %f %f", &n, &m, &v);
     fclose(file);
 
+    printf("\nLS:%d  LI:%d  LL:%d\n", lS, lI, lL);
     /*********************************
      * condition to check for anomaly
      * has to modify it some more
@@ -72,7 +73,7 @@ void check(char *input) {
          * for sig in list of signature
          **/
         while(!feof(fileS)) {
-            printf("\t\tSigFile: %s\n", name1);
+            printf("\t\tSigFile: %s %d\n", name1, lengthPoset(inputHEAD));
             compare(inputHEAD, name1, name2);
             fscanf(fileS, "%s %s", name1, name2);
         }
