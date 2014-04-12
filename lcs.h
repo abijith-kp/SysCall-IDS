@@ -48,7 +48,7 @@ void freeArray(int l1, int l2) {
 
     for(i=1; i<=l1; i++) {
         for(j=1; j<=l2; j++) {
-            free(array[i][j].str);
+            free(array[i][j].str1);
         }
     }
 }
@@ -56,23 +56,117 @@ void freeArray(int l1, int l2) {
 /**
  * finds the longest common subsequnce; returns the string
  **/
-char *string_lcs_v2(struct sysCPS *headRef1, struct sysCPS *headRef2, int l1, int l2) {
-    int l3=0, l4=0, i=0, j=0; 
-    char *t, *t1, *t2, *t3;
+struct sStruct *string_lcs_v2(struct sysCPS *headRef1, struct sysCPS *headRef2, int l1, int l2) {
+    int l3=0, l4=0, l5=0, i=0, j=0, tmp=0; 
+    struct sStruct *t, *t1, *t2, *t3, *t4;
+    char temp[15];
+
+    sprintf(temp, "%d %d\n", l1, l2);
+    tmp = strlen(temp);
 
     if((headRef2 == NULL) || (headRef1 == NULL)) {
-        return "";
+        return NULL;
     }
 
-    l3 = strlenN(array[l1][l2].str);
+    l3 = strlenN(array[l1][l2].str1);
     l4 = strlenN(headRef1->call1);
+    l5 = strlenN(array[l1][l2].str2);
 
     if(l3 > 0) {
-        return array[l1][l2].str;
+        t = (struct sStruct *)malloc(sizeof(struct sStruct));
+        t->str1 = array[l1][l2].str1;
+        t->str2 = array[l1][l2].str2;
+        return t;
     }
 
     if(!strcmp(headRef1->call1, headRef2->call1)) {
         t1 = string_lcs_v2(headRef1->next, headRef2->next, l1-1, l2-1);
+        
+        if(t1) {
+            if(l3 <= (1 + l4 + strlenN(t1->str1))) {
+                if(array[l1][l2].str1) {
+                    /****************************************************************************************
+                    array[l1][l2].str1 = malloc((2 + l3 + strlenN(t1->str1) + l4) * sizeof(char *));
+                    memset(array[l1][l2].str1, 0, sizeof(array[l1][l2].str1));
+                    sprintf(array[l1][l2].str1, "%s%s\n%s", array[l1][l2].str1, headRef1->call1, t1-.str1);
+                    
+                    array[l1][l2].str2 = malloc((2 + l5 + strlenN(t1->str2) + tmp) * sizeof(char *));
+                    memset(array[l1][l2].str2, 0, sizeof(array[l1][l2].str2));
+                    sprintf(array[l1][l2].str2, "%s%s%s", array[l1][l2].str2, temp, t1-.str1);
+                    ******************************************************************************************/
+                    t4->str1 = malloc((2 + l3 + strlenN(t1->str1) + l4) * sizeof(char *));
+                    memset(t4->str1, 0, sizeof(t4));
+                    sprintf(t4->str1, "%s%s\n%s", array[l1][l2].str1, headRef1->call1, t1->str1);
+                    array[l1][l2].str1 = t4->str1;
+                    
+                    t4->str2 = malloc((2 + l5 + strlenN(t1->str2) + tmp) * sizeof(char *));
+                    memset(t4->str2, 0, sizeof(t4));
+                    sprintf(t4->str2, "%s%s%s", array[l1][l2].str1, temp, t1->str1);
+                    array[l1][l2].str1 = t4->str2;
+                }
+                else {
+                    array[l1][l2].str1 = malloc((1 + strlenN(t1->str1) + l4) * sizeof(char *));
+                    memset(array[l1][l2].str1, 0, sizeof(array[l1][l2].str1));
+                    sprintf(array[l1][l2].str1, "%s\n%s", headRef1->call1, t1->str1);
+
+                    array[l1][l2].str2 = malloc((1 + strlenN(t1->str2) + l4) * sizeof(char *));
+                    memset(array[l1][l2].str2, 0, sizeof(array[l1][l2].str2));
+                    sprintf(array[l1][l2].str2, "%s%s", temp, t1->str2);
+                }
+            }
+        }
+        else {
+            if(l3 <= (1 + l4)) {
+                if(array[l1][l2].str1) {
+                    /**************************************************************************
+                    array[l1][l2].str = malloc((2 + l3 + l4) * sizeof(char *));
+                    memset(array[l1][l2].str, 0, sizeof(array[l1][l2].str));
+                    sprintf(array[l1][l2].str, "%s%s", array[l1][l2].str, headRef1->call1);
+                    ****************************************************************************/
+                    t4->str1 = malloc((2 + l3 + l4) * sizeof(char *));
+                    memset(t4->str1, 0, sizeof(t4));
+                    sprintf(t4->str1, "%s%s", array[l1][l2].str1, headRef1->call1);
+                    array[l1][l2].str1 = t4->str1;
+
+                    t4->str2 = malloc((2 + l5 + tmp) * sizeof(char *));
+                    memset(t4->str2, 0, sizeof(t4->str2));
+                    sprintf(t4->str2, "%s%s", array[l1][l2].str2, temp);
+                }
+                else {
+                    array[l1][l2].str1 = strdup(headRef1->call1);
+                    strcat(array[l1][l2].str1, "\n");
+
+                    array[l1][l2].str2 = strdup(temp);
+                    // strcat(array[l1][l2].str, "\n");
+                }
+            }
+        }
+    }
+    else if(strcmp(headRef1->call1, headRef2->call1)) {
+        t2 = string_lcs_v2(headRef1, headRef2->next, l1, l2-1);
+        if(t2)
+            i = strlenN(t2->str1);
+        else
+            i = 0;
+        t1 = string_lcs_v2(headRef1->next, headRef2, l1-1, l2);
+        if(t1)
+            l4 = strlenN(t1->str1);
+        else
+            l4 = 0;
+        t =  (l4>i)?t1:t2;
+        
+        if(t) {
+            if(l3 <= strlenN(t->str1)) {
+                array[l1][l2].str1 = t->str1;
+                array[l1][l2].str2 = t->str2;
+            }
+        }
+        else {
+                array[l1][l2].str1 = "";
+                array[l1][l2].str2 = "";
+        }
+    }
+/********************************************************************************************************
         if(l3 <= (1 + l4 + strlenN(t1))) {
             if(t1) {
                 if(array[l1][l2].str) {
@@ -105,6 +199,9 @@ char *string_lcs_v2(struct sysCPS *headRef1, struct sysCPS *headRef2, int l1, in
         t =  (l4>i)?t1:t2;
         array[l1][l2].str = (l3>strlenN(t))?array[l1][l2].str:t;
     }
-    
-    return array[l1][l2].str;
+*************************************************************************************************************/ 
+    t = (struct sStruct *)malloc(sizeof(struct sStruct));
+    t->str1 = array[l1][l2].str1;
+    t->str2 = array[l1][l2].str2;
+    return t;
 }

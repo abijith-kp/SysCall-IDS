@@ -36,9 +36,9 @@ void findMeanVar() {
  * returns the length of the larget common subsequnce in the two lists
  **/
 int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
-    char *sig;
     FILE *file=fopen(tmpF, "w");
     int l=0;
+    struct sStruct *sig;
 
     if(headRef1 == NULL) {
         headSIG = head;
@@ -49,7 +49,7 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
      * string_lcs needs is replaced with the optimised version v2
      ***************************************************************/
     sig = string_lcs_v2(headRef1, headRef2, lengthPoset(headRef1), lengthPoset(headRef2));
-    fprintf(file, "%s", sig);
+    fprintf(file, "%s", sig->str1);
     fclose(file);
     
     makePoset(tmpF);

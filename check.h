@@ -7,17 +7,17 @@ struct sysCPS *inputHEAD = NULL;
  ***********************************************************/
 
 void compare(struct sysCPS *inp, char *name1, char *name2) {
-    char *str;
     int lS=0, lL=0, lI=0, n=0;
     FILE *file=fopen(tmpSigF, "w");
     float m=0.0, v=0.0;
+    struct sStruct *str;
 
     makePoset(name1);
     lS = lengthPoset(head);
     lI = lengthPoset(inp);
     str = string_lcs_v2(inp, head, lI, lS);
     
-    fprintf(file, "%s", str);
+    fprintf(file, "%s", str->str1);
     fclose(file);
     makePoset(tmpSigF);
     lL = lengthPoset(head);

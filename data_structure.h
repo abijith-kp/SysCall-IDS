@@ -15,7 +15,8 @@ struct sysCPS {
 };
 
 struct sStruct {
-    char *str;
+    char *str1;
+    char *str2;
 };
 
 
