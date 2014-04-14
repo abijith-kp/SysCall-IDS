@@ -2,6 +2,7 @@ int n=0, list[1000];
 double mean=0.0, dev=0.0;
 
 /**
+ ***functions are FINDVAL FINDMEANVAR PROCESS_SIG and CREATE
  * this only works at runtime feed back system
  **/
 void findVal(int mismatch, int i) {

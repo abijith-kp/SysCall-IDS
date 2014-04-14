@@ -1,6 +1,8 @@
 struct sysCPS *inputHEAD = NULL;
 
 /***********************************************************
+fuctions - COMPARE and CHECK
+
  * has to add branches to the signature
  * identify a metric to identify attack
  * currently mean and varience are used to calculate the abnormality in the process behaviour

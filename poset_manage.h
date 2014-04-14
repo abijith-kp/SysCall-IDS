@@ -1,4 +1,8 @@
 // this also modified with tailRef
+/***
+ * ** functions used are makenode addnode_poset makeposet lengthposet printposet
+ */
+
 void addNode_poset(struct sysCPS **tmpRef, struct sysCPS **headRef, struct sysCPS **tailRef) {
         if(!(*headRef)) {
                 *headRef = *tmpRef;

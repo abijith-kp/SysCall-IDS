@@ -1,5 +1,6 @@
 /**
- * stage1
+ *** functions are FREENODE CLEARVAL CLEAN and struct sysCPS getNNode
+ *  stage1
 **/
 
 void freeNode(struct sysCPS *headRef) {

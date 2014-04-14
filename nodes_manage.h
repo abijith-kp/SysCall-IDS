@@ -1,3 +1,8 @@
+/**
+*** functions used are addNode_node makelist 
+*
+**/
+
 void addNode_node(char call[20], struct sysCPS **headRef, struct sysCPS **tailRef) {
 	struct sysCPS *tmp = (struct sysCPS *)malloc(sizeof(struct sysCPS *));
         memset(tmp, 0, sizeof(struct sysCPS));

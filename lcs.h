@@ -1,4 +1,5 @@
 /**
+ *** function are LENGHT_LCS STRINGLCSV2 FREEARRAY STRLENN
  * to find the length of longest common subsequnce
  **/
 int length_lcs(struct sysCPS *headRef1, struct sysCPS *headRef2) {
