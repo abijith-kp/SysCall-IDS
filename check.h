@@ -17,7 +17,7 @@ void compare(struct sysCPS *inp, char *name1, char *name2) {
     makePoset(name1);
     lS = lengthPoset(head);
     lI = lengthPoset(inp);
-    str = string_lcs_v2(inp, head, lI, lS);
+    str = string_lcs_v3(inp, head);
     
     fprintf(file, "%s", str->str1);
     fclose(file);

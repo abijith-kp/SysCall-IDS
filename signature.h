@@ -49,7 +49,7 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     /***************************************************************
      * string_lcs needs is replaced with the optimised version v2
      ***************************************************************/
-    sig = string_lcs_v2(headRef1, headRef2, lengthPoset(headRef1), lengthPoset(headRef2));
+    sig = string_lcs_v3(headRef1, headRef2);
     fprintf(file, "%s", sig->str1);
     fclose(file);
     
