@@ -17,24 +17,24 @@ void compare(struct sysCPS *inp, char *name1, char *name2) {
     makePoset(name1);
     lS = lengthPoset(head);
     lI = lengthPoset(inp);
-    str = string_lcs_v3(inp, head);
+    str = string_lcs_v2(inp, head, lI, lS);
     
     fprintf(file, "%s", str->str1);
     fclose(file);
     makePoset(tmpSigF);
-    lL = lengthPoset(head);
-    lL = str->l;
+    // lL = lengthPoset(head);
+    lL = lI - str->l + 1 - lS;
 
     file = fopen(name2, "r");
     fscanf(file, "%d %f %f", &n, &m, &v);
     fclose(file);
 
-    printf("\nLS:%d  LI:%d  LL:%d\n", lS, lI, lL);
+    printf("\nLS:%d  LI:%d  LL:%d  [%d]\n", lS, lI, lL, str->l);
     /*********************************
      * condition to check for anomaly
      * has to modify it some more
      *********************************/
-    if((lL < (m - v))) { //&& (lL > (m - v))) {
+    if((lL < (lS - v))) { //&& (lL > (m - v))) {
         printf("\t\tNORMAL BEHAVIOUR\n");
     }
     else {
