@@ -23,7 +23,7 @@ void compare(struct sysCPS *inp, char *name1, char *name2) {
     fclose(file);
     makePoset(tmpSigF);
     lL = lengthPoset(head);
-
+    lL = str->l;
 
     file = fopen(name2, "r");
     fscanf(file, "%d %f %f", &n, &m, &v);
@@ -34,7 +34,7 @@ void compare(struct sysCPS *inp, char *name1, char *name2) {
      * condition to check for anomaly
      * has to modify it some more
      *********************************/
-    if(((lL < (lS + v)) && (lL > (lS - v))) || ((lL < (lI + v)) && (lL > (lI - v)))) {
+    if((lL < (m - v))) { //&& (lL > (m - v))) {
         printf("\t\tNORMAL BEHAVIOUR\n");
     }
     else {

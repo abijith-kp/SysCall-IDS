@@ -49,14 +49,16 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     /***************************************************************
      * string_lcs needs is replaced with the optimised version v2
      ***************************************************************/
-    sig = string_lcs_v3(headRef1, headRef2);
+    // sig = string_lcs_v3(headRef1, headRef2);
+    sig = string_lcs_v2(headRef1, headRef2, lengthPoset(headRef1), lengthPoset(headRef2));
     fprintf(file, "%s", sig->str1);
     fclose(file);
     
     makePoset(tmpF);
     headSIG = head;
-    l = lengthPoset(headSIG);
-    return(l);
+    l = lengthPoset(headRef2) - sig->l + 1;
+    printf("\n>>> [%d] [%d] [%d] [%d]\n", lengthPoset(headRef1), lengthPoset(headRef2), lengthPoset(head), l);
+    return(l - lengthPoset(head));
 }
 
 
@@ -82,7 +84,8 @@ void create(char *fileN) {
             clean();
             l1 = lengthPoset(head);
             if(flag == 0) {
-                    list[n++] = process_sig(headSIG, head);
+                    // list[n++] = process_sig(headSIG, head);
+                    headSIG = head;
                     head = NULL;
                     tailSIG = tail;
                     tail = NULL;
