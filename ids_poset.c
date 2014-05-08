@@ -32,7 +32,7 @@
 
 int main(int argc, char **argv) {
         FILE *file = fopen(lists, "r");
-        char fileN[60];
+        char fileN[60], fileA[60];
 
         if(argc < 2) {
                 printf("\nERROR: Usage: %s <arg>\n", argv[0]);
@@ -44,10 +44,13 @@ int main(int argc, char **argv) {
          * for signature creation
          * details regarding branches also need to b added for completion
          **/
-            fscanf(file, "%s", fileN);
+            // fscanf(file, "%s", fileN);
+            fscanf(file, "%s %s", fileN, fileA);
             while(!feof(file)) {
-                    create(fileN);
-                    fscanf(file, "%s", fileN);
+                    // create(fileN);
+                    create(fileN, fileA);
+                    // fscanf(file, "%s ", fileN);
+                    fscanf(file, "%s %s", fileN, fileA);
 		    }
         }
 
