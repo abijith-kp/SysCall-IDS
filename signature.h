@@ -71,7 +71,6 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     // sig = string_lcs_v3(headRef1, headRef2);
     global_len = 0;
     sig = string_lcs_v2(headRef1, headRef2, lengthPoset(headRef1), lengthPoset(headRef2));
-printf("\n>>>>>>>>> %d\n", global_len);
     fprintf(file, "%s", sig->str1);
     fclose(file);
     
