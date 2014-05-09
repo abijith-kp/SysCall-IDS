@@ -6,6 +6,7 @@ char *tmpF = ".tmp";
 char *tmpSigF = ".tmpSig";
 
 int countC = 0, countI = 0, countR = 0, countT = 0, countTD = 0, countSIG = 0, countSIGBB = 0, flag = 0, continueFlag = 0;
+int global_len=0;
 
 // node for the poset is System Call PoSet
 struct sysCPS {

@@ -1,5 +1,5 @@
-int n=0, nA=0, list[1000];
-double mean=0.0, dev=0.0, meanA=0.0, devA=0.0;
+int n, nA, list[1000];
+double mean, dev, meanA, devA;
 
 /**
  ***functions are FINDVAL FINDMEANVAR PROCESS_SIG and CREATE
@@ -17,11 +17,12 @@ void findVal(int mismatch, int i) {
 
 void findMeanVar(int o) {
     int i=0, t=0;
-    mean = 0.0; meanA=0.0;
-    dev = 0.0; dev=0.0;
-    n -= 1; nA -=1;
-    
+
+   
     if(o == 1) {
+    mean = 0.0; 
+    dev = 0.0; 
+    n -= 1; 
     	for(i=0; i<n; i++) {
         	mean += list[i];
     	}
@@ -34,6 +35,10 @@ void findMeanVar(int o) {
     	dev = sqrt(dev/n);
     }
     else {
+nA -=1;
+devA=0.0;
+meanA=0.0;
+ 
     	for(i=0; i<nA; i++) {
         	meanA += list[i];
     	}
@@ -64,7 +69,9 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
      * string_lcs needs is replaced with the optimised version v2
      ***************************************************************/
     // sig = string_lcs_v3(headRef1, headRef2);
+    global_len = 0;
     sig = string_lcs_v2(headRef1, headRef2, lengthPoset(headRef1), lengthPoset(headRef2));
+printf("\n>>>>>>>>> %d\n", global_len);
     fprintf(file, "%s", sig->str1);
     fclose(file);
     
@@ -72,7 +79,7 @@ int process_sig(struct sysCPS *headRef1, struct sysCPS *headRef2) {
     headSIG = head;
     l = lengthPoset(headRef2) - sig->l + 1;
     // printf("\n>>> [%d] [%d] [%d] [%d]\n", lengthPoset(headRef1), lengthPoset(headRef2), lengthPoset(head), l);
-    return(l - lengthPoset(head));
+    return(global_len); //l - lengthPoset(head));
 }
 
 
@@ -178,7 +185,7 @@ void create(char *fileN, char *fileA) {
                     countSIG = countT;
                     countT = 0;
                     flag = 1;
-                    printf("\tProcessed file: %s\n\tProcessed value: %d\n", name, list[n-1]);
+                    printf("\tProcessed file: %s\n\tProcessed value: %d\n", name, list[nA-1]);
 	                fscanf(file, "%s", name);
                     continue;
             }
